@@ -19,7 +19,7 @@ const requestHandler = async (request) => {
     console.log(JSON.stringify(extractedHeaders, null, 2)); // 打印提取的参数
 
     // 发送通知
-    $notify("请求 Header 参数提取成功", "参数如下", JSON.stringify(extractedHeaders, null, 2));
+    $notify("秀动账号参数提取成功 🎉", "参数如下", JSON.stringify(extractedHeaders, null, 2));
 
     // 可选：保存到本地
     $prefs.setValueForKey(JSON.stringify(extractedHeaders), "showstart_headers");
