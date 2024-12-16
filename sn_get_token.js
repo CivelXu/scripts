@@ -22,6 +22,11 @@ if (url === targetUrl) {
   // 将 token 和 ulpToken 保存到本地存储
   $persistent.write("token", token);
   $persistent.write("ulpToken", ulpToken);
+  
+  storeData("xxw-token", token);
+  storeData("xxw-ulpToken", ulpToken);
+  readData("xxw-token");
+  readData("xxw-ulpToken");
 
   console.log("Token 和 ULP Token 已保存到本地存储");
   
@@ -34,4 +39,25 @@ if (url === targetUrl) {
 } else {
   // 如果 URL 不匹配则直接返回原始响应
   $done({});
+}
+
+// 存储数据到本地
+function storeData(key, value) {
+  const result = $prefs.setValueForKey(value, key);
+  if (result) {
+    console.log(`成功存储数据: { key: ${key}, value: ${value} }`);
+  } else {
+    console.log(`存储数据失败: { key: ${key}, value: ${value} }`);
+  }
+}
+
+// 从本地读取数据
+function readData(key) {
+  const value = $prefs.valueForKey(key);
+  if (value) {
+    console.log(`读取的数据: { key: ${key}, value: ${value} }`);
+  } else {
+    console.log(`未能读取到数据，key: ${key}`);
+  }
+  return value;
 }
