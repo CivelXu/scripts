@@ -20,6 +20,7 @@ if (url === targetUrl) {
   // 输出到日志
   console.log("Interception:", data);
   console.log("Specific Field:", specificField);
+  $notify("提取成功 🎉", "参数如下", JSON.stringify(data, null, 2));
 
   // 无需修改，直接返回原始响应
   $done({});
