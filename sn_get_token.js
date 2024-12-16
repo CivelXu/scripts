@@ -19,10 +19,7 @@ if (url === targetUrl) {
   let ulpToken = info.ulpToken
 
   // 将 token 和 ulpToken 保存到本地存储
-  // 将 token 和 ulpToken 保存到本地存储
-  $persistent.write("token", token);
-  $persistent.write("ulpToken", ulpToken);
-  
+
   storeData("xxw-token", token);
   storeData("xxw-ulpToken", ulpToken);
   readData("xxw-token");
