@@ -1,30 +1,31 @@
-/*
-Quantumult X 脚本
-用途：拦截并解析返回的数据
-*/
 
-// 匹配目标 URL
-const url = $request.url;
-const targetUrl = "https://scm.sheincorp.cn/system/login/wechat";
+/**
+ * @fileoverview Quantumult X 拦截请求并提取 Header 参数
+ * @author 
+ */
 
-if (url === targetUrl) {
-  // 获取接口返回的原始数据
-  let body = $response.body;
+// 匹配目标请求的 URL
+const urlPattern = /^https:\/\/scm\.sheincorp\.cn\/system\/login\/wechat$/;
 
-  // 解析 JSON 数据
-  let data = JSON.parse(body);
-  
-  // 例如：解析某个特定字段
-  let specificField = data.some_field; // 请根据实际返回内容填写
+// 主函数
+const requestHandler = async (request) => {
+  const response = request.response; // 获取请求头部信息
 
-  // 输出到日志
-  console.log("Interception:", data);
-  console.log("Specific Field:", specificField);
-  $notify("提取成功 🎉", "参数如下", JSON.stringify(data, null, 2));
+  console.log("拦截的 response 参数:");
+  console.log(JSON.stringify(response, null, 2)); // 打印提取的参数
 
-  // 无需修改，直接返回原始响应
-  $done({});
-} else {
-  // 如果 URL 不匹配则直接返回原始响应
-  $done({});
-}
+  // 发送通知
+  $notify("response 🎉", "参数如下", JSON.stringify(response, null, 2));
+
+  // 可选：保存到本地
+  $prefs.setValueForKey(JSON.stringify(response), "showstart_headers");
+};
+
+// 入口
+(() => {
+  const url = $request.url || "";
+  if (urlPattern.test(url)) {
+    requestHandler($request);
+  }
+  $done();
+})();
