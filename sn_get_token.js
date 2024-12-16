@@ -15,11 +15,15 @@ if (url === targetUrl) {
   let data = JSON.parse(body);
   
   // 例如：解析某个特定字段
-  let specificField = data.some_field; // 请根据实际返回内容填写
+  let info = data.info; // 请根据实际返回内容填写
+  let token = info.token
+  let ulpToken = info.ulpToken
 
   // 输出到日志
-  console.log("Interception:", data);
-  console.log("Specific Field:", specificField);
+  console.log(JSON.stringify(data, null, 2));
+  console.log(token);
+  console.log(ulpToken);
+
   $notify("提取成功 🎉", "参数如下", JSON.stringify(data, null, 2));
 
   // 无需修改，直接返回原始响应
